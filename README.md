@@ -37,7 +37,7 @@ Campo 2D • IA de jogadores • Narração ao vivo • Apostas • 38 rodadas
 
 ## 🚀 Como Jogar
 
-1.**[▶ Jogar agora](https://pepsidoritos-coder.github.io/brasileirao-ultimate-manager//)**manager/)
+1. **[▶ Jogar agora](https://pepsidoritos-coder.github.io/brasileirao-ultimate-manager//)**manager/)
 2. Vá na aba **"Apostas"** e preencha o placar dos 10 jogos.
 3. Clique em **"CONFIRMAR E JOGAR"**.
 4. Volte ao Match Center e clique em **"INICIAR RODADA"**.
