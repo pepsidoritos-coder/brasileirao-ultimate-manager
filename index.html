@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Simulador completo do Brasileirão Série A 2026 com campo 2D, IA de jogadores e sistema de apostas.">
+<title>Brasileirão do Marvin Costa — Ultimate Manager 2026</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!-- Estilos -->
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<!-- ════════════ NAV ════════════ -->
+<nav>
+  <div class="nav-logo"><i class="fas fa-futbol"></i> BRASILEIRÃO <span>MARVIN COSTA 2026</span></div>
+  <div class="nav-tabs">
+    <button class="ntab on" id="tab-live"  onclick="setTab('live',this)"><i class="fas fa-tv"></i> Match Center</button>
+    <button class="ntab"    id="tab-bets"  onclick="setTab('bets',this)"><i class="fas fa-coins"></i> Apostas</button>
+    <button class="ntab"    id="tab-table" onclick="setTab('table',this)"><i class="fas fa-list-ol"></i> Tabela</button>
+  </div>
+  <div style="display:flex;gap:10px;align-items:center">
+    <div class="round-badge" id="round-disp">RODADA 1/38</div>
+    <div class="wallet-badge"><i class="fas fa-wallet"></i> R$ <span id="wallet-v">2500.00</span></div>
+    <!-- Auto-save indicator -->
+    <div class="save-indicator" id="save-indicator"><i class="fas fa-cloud"></i> Auto-save</div>
+  </div>
+</nav>
+
+<!-- ════════════ MATCH CENTER ════════════ -->
+<div class="layout" id="sec-live">
+
+  <!-- Coluna esquerda -->
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div class="card" style="flex:1">
+      <div class="ctitle"><i class="fas fa-satellite-dish"></i> Jogos da Rodada</div>
+      <div id="round-list" style="max-height:390px;overflow-y:auto;padding-right:3px"></div>
+    </div>
+    <div class="card">
+      <div class="ctitle"><i class="fas fa-chart-pie"></i> Favorito do Público</div>
+      <div class="pie-wrap">
+        <svg class="pie-svg" viewBox="0 0 36 36" id="pie-svg"></svg>
+        <div class="pie-leg">
+          <div class="pie-row"><div class="pie-lbl"><div class="pie-dot" style="background:var(--accent)"></div><span id="ph-lbl">Casa</span></div><span class="pie-pct" id="ph-pct">40%</span></div>
+          <div class="pie-row"><div class="pie-lbl"><div class="pie-dot" style="background:#566070"></div><span>Empate</span></div><span class="pie-pct" id="pd-pct">30%</span></div>
+          <div class="pie-row"><div class="pie-lbl"><div class="pie-dot" style="background:var(--red)"></div><span id="pa-lbl">Fora</span></div><span class="pie-pct" id="pa-pct">30%</span></div>
+        </div>
+      </div>
+      <div class="pie-txt" id="pie-txt"></div>
+    </div>
+  </div>
+
+  <!-- Coluna central (campo + narrador) -->
+  <div style="display:flex;flex-direction:column">
+
+    <!-- Placar -->
+    <div class="scoreboard">
+      <div class="ti">
+        <img class="ti-shield" id="sb-lh" src="" alt="" onerror="this.style.display='none'">
+        <div class="tc" id="sb-ch">---</div>
+      </div>
+      <div class="sc-mid">
+        <div class="sc-clock" id="sc-clock">00:00 <span class="sc-stop" id="sc-stop"></span></div>
+        <div class="sc-digits"><span id="sc-h">0</span><span class="sc-sep"> - </span><span id="sc-a">0</span></div>
+        <div class="possession-wrap">
+          <div style="display:flex;justify-content:space-between;font-size:0.65rem;color:var(--muted);font-weight:700;margin-bottom:3px">
+            <span id="pos-h-txt">50%</span><span>POSSE DE BOLA</span><span id="pos-a-txt">50%</span>
+          </div>
+          <div class="pos-bar"><div class="pos-bar-h" id="pos-bar-h" style="width:50%;"></div></div>
+        </div>
+      </div>
+      <div class="ti">
+        <img class="ti-shield" id="sb-la" src="" alt="" onerror="this.style.display='none'">
+        <div class="tc" id="sb-ca">---</div>
+      </div>
+    </div>
+
+    <!-- Campo 2D -->
+    <div id="pitch-wrap">
+      <canvas id="pitch-canvas"></canvas>
+
+      <!-- Celebração de gol -->
+      <div id="goal-cel">
+        <img class="cel-avatar" id="cel-img" src="" alt="">
+        <div class="cel-gol">GOOOL!</div>
+        <div class="cel-name" id="cel-name"></div>
+        <div class="cel-team" id="cel-team"></div>
+      </div>
+
+      <!-- Tela de campeão -->
+      <div id="champion-scr">
+        <div class="trophy-i"><i class="fas fa-trophy"></i></div>
+        <h1 style="font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:4px;color:#fff;margin-top:6px">CAMPEÃO BRASILEIRO</h1>
+        <h2 id="champ-name" style="font-family:'Bebas Neue',sans-serif;font-size:3.2rem;letter-spacing:6px;color:var(--gold)"></h2>
+        <p id="champ-scorer" style="margin-top:14px;font-size:1.1rem;color:var(--accent);font-weight:600"></p>
+      </div>
+    </div>
+
+    <!-- Controle de velocidade -->
+    <div class="speed-control">
+      <label><i class="fas fa-tachometer-alt"></i> VELOCIDADE</label>
+      <input type="range" id="speed-slider" min="0" max="3" step="1" value="1">
+      <span class="speed-value" id="speed-value">1x</span>
+      <button id="btn-mute" onclick="toggleMute()" style="margin-left:14px;background:transparent;border:1px solid var(--border);color:var(--muted);padding:4px 10px;border-radius:5px;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:1px;transition:all .2s">
+        <i class="fas fa-volume-up"></i> Narração Ativa
+      </button>
+      <!-- Botão reset temporada -->
+      <button onclick="resetSave()" style="margin-left:auto;background:transparent;border:1px solid var(--border);color:var(--muted);padding:4px 10px;border-radius:5px;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:1px;transition:all .2s"
+        onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--red)'"
+        onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">
+        <i class="fas fa-redo"></i> RESETAR
+      </button>
+    </div>
+
+    <!-- Narração -->
+    <div class="card" style="padding:10px;margin-bottom:10px">
+      <div class="ctitle"><i class="fas fa-microphone-alt"></i> Narração ao Vivo</div>
+      <div class="narrator" id="narrator">
+        <div style="text-align:center;padding:50px;color:var(--muted);font-size:.8rem">Aguardando início...</div>
+      </div>
+    </div>
+
+    <!-- Botão principal -->
+    <button class="btn-go" id="btn-go" onclick="handleMainBtn()">
+      <i class="fas fa-play"></i> INICIAR RODADA 1
+    </button>
+  </div>
+
+  <!-- Coluna direita -->
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div class="card" style="flex:1">
+      <div class="ctitle"><i class="fas fa-ticket-alt"></i> Seus Palpites</div>
+      <div id="bets-live" style="max-height:340px;overflow-y:auto"></div>
+    </div>
+    <div class="card">
+      <div class="ctitle"><i class="fas fa-shoe-prints"></i> Artilharia da Temporada</div>
+      <div id="scorers-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ APOSTAS ════════════ -->
+<div id="sec-bets" style="display:none">
+  <div class="card">
+    <div style="margin-bottom:14px">
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:1.9rem;letter-spacing:3px;color:var(--accent)">Bilhete da Rodada</h2>
+      <p style="color:var(--muted);font-size:.88rem;margin-top:3px">
+        Preencha os <strong style="color:var(--text)">10 jogos</strong> para liberar a rodada.
+      </p>
+    </div>
+    <div id="bet-form"></div>
+    <div class="stake-row">
+      <div style="flex:1">
+        <label style="font-size:.74rem;color:var(--muted);font-weight:700;letter-spacing:1px;display:block;margin-bottom:5px">VALOR POR JOGO (R$)</label>
+        <input type="number" id="stake-val" class="stake-i" value="10" min="1">
+      </div>
+      <button class="btn-go" style="flex:2;padding:11px" onclick="submitBets()">
+        <i class="fas fa-lock"></i> CONFIRMAR E JOGAR
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ TABELA ════════════ -->
+<div id="sec-table" style="display:none">
+  <div class="card">
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:1.9rem;letter-spacing:3px;margin-bottom:16px">
+      Classificação Brasileirão 2026
+    </h2>
+    <div style="overflow-x:auto">
+      <table>
+        <thead>
+          <tr><th>POS</th><th>CLUBE</th><th>PTS</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>SG</th></tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+      </table>
+    </div>
+    <div class="leg-row">
+      <div class="leg-i"><div class="leg-box" style="background:var(--lib)"></div> Libertadores</div>
+      <div class="leg-i"><div class="leg-box" style="background:var(--pre)"></div> Pré-Libertadores</div>
+      <div class="leg-i"><div class="leg-box" style="background:var(--sul)"></div> Sul-Americana</div>
+      <div class="leg-i"><div class="leg-box" style="background:var(--reb)"></div> Rebaixamento</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ PAINEL FIM DE RODADA ════════════ -->
+<div id="round-end-panel" style="display:none">
+  <div class="rep-box">
+    <div class="rep-title" id="rep-title">RESULTADOS — RODADA 1</div>
+    <div class="rep-results" id="rep-results"></div>
+    <div style="margin-bottom:14px">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.74rem;letter-spacing:2px;color:var(--accent);margin-bottom:8px">CLASSIFICAÇÃO ATUALIZADA</div>
+      <div style="max-height:220px;overflow-y:auto">
+        <table>
+          <thead><tr><th>POS</th><th>CLUBE</th><th>PTS</th><th>J</th><th>SG</th></tr></thead>
+          <tbody id="rep-table-body"></tbody>
+        </table>
+      </div>
+    </div>
+    <div id="rep-bets" style="margin-bottom:14px"></div>
+    <button class="btn-next" id="btn-next">
+      <i class="fas fa-forward"></i> PRÓXIMA RODADA
+    </button>
+  </div>
+</div>
+
+<!-- ════════════ MODAL ELENCO ════════════ -->
+<div class="modal-bg" id="modal-squad" onclick="this.style.display='none'">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-hdr">
+      <img id="m-logo" src="" alt="">
+      <h2 id="m-name"></h2>
+    </div>
+    <div id="m-players"></div>
+  </div>
+</div>
+
+<script src="assets/js/database.js"></script>
+<script src="assets/js/narrator.js"></script>
+<script src="assets/js/engine.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/game.js"></script>
+
+</body>
+</html>
