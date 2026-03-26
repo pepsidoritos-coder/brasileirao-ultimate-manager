@@ -1,4 +1,4 @@
-<![CDATA[<div align="center">
+<div align="center">
 
 # ⚽ Brasileirão Ultimate Manager 2026
 
@@ -21,7 +21,7 @@ Campo 2D • IA de jogadores • Narração ao vivo • Apostas • 38 rodadas
 | ⚽ | **10 jogos simultâneos** | Todas as partidas da rodada rolam em paralelo com relógio real |
 | 🏟️ | **Campo 2D realista** | Proporções FIFA com áreas, pênaltis, arcos e balizas |
 | 🤖 | **IA com Steering Behaviors** | Jogadores autônomos: Seek, Separation, Wander e Pressure |
-| 🏃 | **Física da bola** | Atrito, rebote, spin rotacional, trail e sombra dinâmica |
+| 跑 | **Física da bola** | Atrito, rebote, spin rotacional, trail e sombra dinâmica |
 | 🗣️ | **Narração com voz** | Narração feminina sintetizada e sincronizada com os eventos do campo |
 | 🟨 | **Sistema de cartões** | Amarelo com acúmulo, segundo amarelo = vermelho, expulsão visual |
 | 📊 | **Posse de bola ao vivo** | Barra de posse atualiza em tempo real durante a partida |
@@ -37,23 +37,21 @@ Campo 2D • IA de jogadores • Narração ao vivo • Apostas • 38 rodadas
 
 ## 🚀 Como Jogar
 
-```
-1. Abra index.html no navegador (arraste ou duplo-clique)
-2. Vá na aba "Apostas" e preencha o placar dos 10 jogos
-3. Clique em "CONFIRMAR E JOGAR"
-4. Volte ao Match Center e clique em "INICIAR RODADA"
-5. Assista aos jogos ao vivo — clique na lista lateral para trocar de partida
-6. No fim da rodada, confira resultados e avance
+1. Abra `index.html` no navegador (arraste ou duplo-clique).
+2. Vá na aba **"Apostas"** e preencha o placar dos 10 jogos.
+3. Clique em **"CONFIRMAR E JOGAR"**.
+4. Volte ao Match Center e clique em **"INICIAR RODADA"**.
+5. Assista aos jogos ao vivo — clique na lista lateral para trocar de partida.
+6. No fim da rodada, confira resultados e avance.
 7. Repita por 38 rodadas até o campeão! 🏆
-```
 
 > **Dica:** Use o slider de velocidade para acelerar até 5× quando quiser.
 
 ---
 
-## 📁 Estrutura
+## 📁 Estrutura do Projeto
 
-```
+```text
 brasileirao-ultimate-manager/
 ├── index.html          ← Ponto de entrada
 ├── README.md
@@ -68,34 +66,3 @@ brasileirao-ultimate-manager/
         ├── engine.js   ← Canvas 2D, física, IA dos jogadores
         ├── ui.js       ← Interface, tabs, apostas, scoreboard
         └── game.js     ← Lógica de simulação e persistência
-```
-
----
-
-## 🛠️ Tecnologias
-
-| Tecnologia | Uso |
-|---|---|
-| **Canvas 2D** | Campo, jogadores e bola a 60fps |
-| **Web Speech API** | Narração feminina sintetizada em pt-BR |
-| **LocalStorage** | Persistência da temporada |
-| **CSS Variables + Grid** | Design responsivo e temático |
-| **Google Fonts** | Bebas Neue · Barlow Condensed |
-| **Font Awesome 6** | Ícones de interface |
-
----
-
-## 👨‍💻 Autor
-
-**Marvin Costa**
-
-Simulação esportiva, IA para jogos e renderização canvas de alta performance.
-
----
-
-<div align="center">
-
-⭐ **Curtiu? Deixa uma estrela!** ⭐
-
-</div>
-]]>
