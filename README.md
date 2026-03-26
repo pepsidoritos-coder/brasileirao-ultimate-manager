@@ -8,7 +8,6 @@
 
 **[▶ Jogar agora](https://SEU_USUARIO.github.io/brasileirao-ultimate-manager/)**
 
-> _Substitua com sua URL do GitHub Pages após o deploy._
 
 <br>
 
