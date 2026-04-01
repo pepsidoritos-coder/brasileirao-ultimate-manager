@@ -1,104 +1,55 @@
-<![CDATA[<div align="center">
-
-# ⚽ Brasileirão Ultimate Manager 2026
-
-**Simulador completo do Campeonato Brasileiro — em tempo real, direto no navegador.**
-
-Campo 2D • IA de jogadores • Narração ao vivo • Apostas • 38 rodadas
-
----
-
-`HTML` · `CSS` · `JavaScript puro` — sem frameworks, sem npm, sem dependências.
-
-<<<<<<< HEAD
-=======
-</div>
->>>>>>> 5d381f7 (docs: atualizando documentação do projeto v2)
-
----
-
-## 🎮 Funcionalidades
-
-| | Feature | Descrição |
-|---|---|---|
-| ⚽ | **10 jogos simultâneos** | Todas as partidas da rodada rolam em paralelo com relógio real |
-| 🏟️ | **Campo 2D realista** | Proporções FIFA com áreas, pênaltis, arcos e balizas |
-| 🤖 | **IA com Steering Behaviors** | Jogadores autônomos: Seek, Separation, Wander e Pressure |
-| 🏃 | **Física da bola** | Atrito, rebote, spin rotacional, trail e sombra dinâmica |
-| 🗣️ | **Narração com voz** | Narração feminina sintetizada e sincronizada com os eventos do campo |
-| 🟨 | **Sistema de cartões** | Amarelo com acúmulo, segundo amarelo = vermelho, expulsão visual |
-| 📊 | **Posse de bola ao vivo** | Barra de posse atualiza em tempo real durante a partida |
-| ⏸️ | **Pausas técnicas** | Jogadores se reúnem com o técnico aos 30' e 75' |
-| 🏆 | **Tabela de classificação** | Atualizada automaticamente com zonas (Libertadores, Sul-Americana, Rebaixamento) |
-| 🎯 | **Apostas de placar exato** | Odds dinâmicas baseadas na classificação |
-| 💰 | **Carteira virtual** | Saldo acumulado ao longo das 38 rodadas |
-| ⚡ | **Controle de velocidade** | 0.5× · 1× · 2× · 5× |
-| 💾 | **Auto-save** | Temporada salva em LocalStorage — fecha e retoma depois |
-| 🥇 | **Artilharia** | Ranking com medalhas 🥇🥈🥉 e total de gols por jogador |
-
----
-
-## 🚀 Como Jogar
-
-```
-1. Abra index.html no navegador (arraste ou duplo-clique)
-2. Vá na aba "Apostas" e preencha o placar dos 10 jogos
-3. Clique em "CONFIRMAR E JOGAR"
-4. Volte ao Match Center e clique em "INICIAR RODADA"
-5. Assista aos jogos ao vivo — clique na lista lateral para trocar de partida
-6. No fim da rodada, confira resultados e avance
-7. Repita por 38 rodadas até o campeão! 🏆
-```
-
-> **Dica:** Use o slider de velocidade para acelerar até 5× quando quiser.
-
----
-
-## 📁 Estrutura
-
-```
-brasileirao-ultimate-manager/
-├── index.html          ← Ponto de entrada
-├── README.md
-├── LICENSE
-└── assets/
-    ├── css/style.css   ← Design system completo
-    ├── img/ball.png    ← Sprite da bola
-    ├── shields/        ← Escudos dos times
-    └── js/
-        ├── database.js ← Clubes, elencos, escudos, narração
-        ├── narrator.js ← Motor de narração contextual
-        ├── engine.js   ← Canvas 2D, física, IA dos jogadores
-        ├── ui.js       ← Interface, tabs, apostas, scoreboard
-        └── game.js     ← Lógica de simulação e persistência
-```
-
----
-
-## 🛠️ Tecnologias
-
-| Tecnologia | Uso |
-|---|---|
-| **Canvas 2D** | Campo, jogadores e bola a 60fps |
-| **Web Speech API** | Narração feminina sintetizada em pt-BR |
-| **LocalStorage** | Persistência da temporada |
-| **CSS Variables + Grid** | Design responsivo e temático |
-| **Google Fonts** | Bebas Neue · Barlow Condensed |
-| **Font Awesome 6** | Ícones de interface |
-
----
-
-## 👨‍💻 Autor
-
-**Marvin Costa**
-
-Simulação esportiva, IA para jogos e renderização canvas de alta performance.
-
----
-
 <div align="center">
 
-⭐ **Curtiu? Deixa uma estrela!** ⭐
+# ⚽ Brasileirão Ultimate Manager 2026
+**Engine de Simulação Esportiva Multithread-like em Vanilla JS**
 
+[Acessar Demo Live](https://marvincoast.github.io/brasileirao-ultimate-manager/)
+
+---
+`Vanilla JS` · `Canvas 2D` · `Web Speech API` · `Zero Dependencies`
 </div>
-]]>
+
+## 🛠️ Visão Geral Técnica
+Este projeto é um simulador de alta performance do Campeonato Brasileiro, focado em **renderização eficiente via Canvas** e **IA autônoma**. Desenvolvido sem frameworks ou gerenciadores de pacotes, priorizando o uso nativo das APIs do navegador.
+
+## 🚀 Diferenciais de Engenharia
+
+### 🧠 Inteligência Artificial & Física
+* **Steering Behaviors:** Implementação de algoritmos de direção (Seek, Separation, Wander) para movimentação realista de 220 jogadores simultâneos (10 partidas em paralelo).
+* **Kinematic Engine:** Física da bola com cálculo de atrito, vetor de rebote e spin rotacional.
+* **Contextual Narrator:** Motor de narração baseado em **Web Speech API** com fila de prioridades para eventos de jogo em tempo real.
+
+### 💾 Arquitetura de Dados & UI
+* **State Management:** Persistência de estado da temporada (38 rodadas) utilizando **LocalStorage API** com serialização JSON.
+* **Real-time Dashboard:** Interface responsiva utilizando **CSS Grid/Flexbox** e variáveis nativas, otimizada para monitoramento de múltiplos eventos.
+* **Simulação Concorrente:** Lógica de processamento de 10 partidas simultâneas com controle de ticks de jogo (0.5x a 5x).
+
+## 📁 Estrutura do Projeto
+```text
+.
+├── index.html          # Entry point e estrutura DOM
+├── assets/
+│   ├── js/
+│   │   ├── engine.js   # Core: Canvas 2D, Física e IA (Steering)
+│   │   ├── database.js # Camada de dados: Clubes, elencos e assets
+│   │   ├── narrator.js # Controller: Interface de voz e eventos
+│   │   ├── ui.js       # View: Manipulação de DOM e Scoreboard
+│   │   └── game.js     # Logic: Persistência e regras de negócio
+│   └── css/style.css   # Design System e Temas
+🛠️ Stack Tecnológica
+Runtime: Browser Native (Chrome/Edge/Firefox/Safari).
+
+Graphics: HTML5 Canvas API (60 FPS).
+
+Audio: Web Speech Synthesis (PT-BR).
+
+Storage: Window.localStorage.
+
+Typography: Google Fonts (Bebas Neue / Barlow).
+
+👨‍💻 Autor
+Marvin Costa Cloud Infrastructure Analyst & Solutions Architecture Specialist.
+
+<div align="center">
+<sub>Projeto desenvolvido para demonstração de lógica de programação e manipulação de APIs nativas.</sub>
+</div>
